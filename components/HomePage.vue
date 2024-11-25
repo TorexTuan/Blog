@@ -6,6 +6,7 @@
 export default {
   mounted() {
     console.log("aaa");
+    console.log("aaa");
   },
 };
 </script>
