@@ -7,17 +7,25 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "husky": "^9.1.7",
     "nuxt": "^3.14.1592",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^0.7.1",
+    "@nuxtjs/eslint-config": "^12.0.0",
+    "@nuxtjs/eslint-module": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
     "eslint": "^9.15.0",
-    "lint-staged": "^15.2.10"
+    "eslint-plugin-vue": "^9.31.0",
+    "lint-staged": "^15.2.10",
+    "typescript": "^5.7.2",
+    "husky": "^9.1.7"
   },
   "lint-staged": {
     "*.{ts,vue}": "eslint --fix"
