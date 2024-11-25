@@ -9,6 +9,7 @@
 export default {
   mounted() {
     const a = new Map();
+    console.log(a);
   },
 };
 </script>
