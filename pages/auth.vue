@@ -1,5 +1,7 @@
 <template>
-  <div class="default-bg-color flex-center">
+  <div
+    class="flex-center bg-[url('/assets/images/background-img.jpg')] h-screen"
+  >
     <form
       class="shadow-2xl shadow-black/50 rounded-xl p-10 flex-center flex-col border-[1px] border-white/20 backdrop-opacity-50 w-[400px]"
     >
