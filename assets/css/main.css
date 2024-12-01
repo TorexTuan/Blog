@@ -19,3 +19,7 @@ body {
 .label {
   @apply font-bold text-xl;
 }
+
+.underline-text {
+  @apply hover:underline text-sm cursor-pointer;
+}
