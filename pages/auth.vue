@@ -75,13 +75,13 @@
         <div class="text-center mt-3 flex-center">
           <div v-if="isRegister">
             <span class="text-sm"> You already had an account! </span>
-            <span class="underline-text" @click="isRegister = false">
+            <span class="underline-text" @click="switchRegisterForm(false)">
               Login
             </span>
           </div>
           <div v-else>
             <span class="text-sm"> Have you had an account? </span>
-            <span class="underline-text" @click="isRegister = true">
+            <span class="underline-text" @click="switchRegisterForm(true)">
               Register
             </span>
           </div>
@@ -97,4 +97,10 @@ import { ref } from "vue";
 const isRegister = ref<boolean>(false);
 const isShowPassword = ref<boolean>(false);
 const isShowConfirmPassword = ref<boolean>(false);
+
+function switchRegisterForm(value: boolean): void {
+  isRegister.value = value;
+  isShowPassword.value = false;
+  isShowConfirmPassword.value = false;
+}
 </script>
