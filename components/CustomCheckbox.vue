@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox-wrapper-4 w-fit">
-    <input id="morning" class="inp-cbx" type="checkbox" />
+    <input id="morning" v-model="isCheck" class="inp-cbx" type="checkbox" />
     <label class="cbx flex items-center" for="morning">
       <span>
         <svg width="12px" height="10px">
@@ -18,7 +18,21 @@
 </template>
 
 <script setup lang="ts">
-const { name } = defineProps({
+const emit = defineEmits(["update:modelValue"]);
+const isCheck = computed<boolean>({
+  get(): boolean {
+    return modelValue;
+  },
+  set(value: boolean): void {
+    emit("update:modelValue", value);
+  }
+});
+
+const { name, modelValue } = defineProps({
+  modelValue: {
+    type: Boolean,
+    default: false
+  },
   name: {
     type: String,
     default: "Default Label"

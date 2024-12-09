@@ -3,22 +3,24 @@
     class="flex-center bg-[url('/assets/images/background-img.jpg')] h-screen"
   >
     <form
-      class="shadow-2xl shadow-black/50 rounded-xl p-10 flex-center flex-col border-[1px] border-white/20 backdrop-blur-xl w-[400px]"
+      class="shadow-2xl shadow-black/50 rounded-xl p-10 flex-center flex-col border-[1px] border-white/20 backdrop-blur-xl w-[360px] sm:w-[400px]"
     >
       <p class="label mb-2">{{ isRegister ? "Register" : "Login" }}</p>
       <div class="flex flex-col w-full">
         <CustomTextBox
+          v-model="user.name"
           hide-label
-          class="my-3"
           label="Username"
           placeholder="Username"
           append-icon-name="tabler:user-circle"
+          class="mt-2"
         />
         <CustomTextBox
+          v-model="user.password"
           hide-label
-          class="my-3"
           label="Password"
           placeholder="Password"
+          class="mt-2"
           :type="isShowPassword ? 'text' : 'password'"
         >
           <template #append-icon>
@@ -40,10 +42,11 @@
         </CustomTextBox>
         <CustomTextBox
           v-if="isRegister"
+          v-model="user.confirmPassword"
           hide-label
-          class="my-3"
           label="Confirm Password"
           placeholder="Confirm Password"
+          class="mt-2"
           :type="isShowConfirmPassword ? 'text' : 'password'"
         >
           <template #append-icon>
@@ -64,13 +67,18 @@
           </template>
         </CustomTextBox>
         <div v-if="!isRegister" class="my-2 flex justify-between">
-          <CustomCheckbox type="text" name="Remember me" />
+          <CustomCheckbox
+            v-model="user.isRememberMe"
+            type="text"
+            name="Remember me"
+          />
           <span class="underline-text"> Forgot password? </span>
         </div>
         <CustomButton
           type="button"
           :name="isRegister ? 'Submit' : 'Login'"
           class="mt-2 text-black"
+          @click="submitUserInfo"
         />
         <div class="text-center mt-3 flex-center">
           <div v-if="isRegister">
@@ -93,14 +101,26 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import type { User } from "@/dto/auth.dto";
 
-const isRegister = ref<boolean>(false);
+const isRegister = ref<boolean>(true);
 const isShowPassword = ref<boolean>(false);
 const isShowConfirmPassword = ref<boolean>(false);
+const error = ref<boolean>(false);
+const user = ref<User>({
+  name: "",
+  password: "",
+  confirmPassword: "",
+  isRememberMe: false
+});
 
 function switchRegisterForm(value: boolean): void {
   isRegister.value = value;
   isShowPassword.value = false;
   isShowConfirmPassword.value = false;
+}
+
+function submitUserInfo() {
+  error.value = !error.value;
 }
 </script>
