@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/google-fonts",
-    "@nuxt/icon"
+    "@nuxt/icon",
+    "@nuxtjs/i18n"
   ],
   devtools: { enabled: true },
   compatibilityDate: "2024-11-26",
@@ -13,5 +14,8 @@ export default defineNuxtConfig({
     serverBundle: {
       collections: ["tabler"]
     }
+  },
+  i18n: {
+    vueI18n: "./i18n.config.ts"
   }
 });

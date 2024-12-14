@@ -23,3 +23,7 @@ body {
 .underline-text {
   @apply hover:underline text-sm cursor-pointer;
 }
+
+.bg-default-blur {
+  @apply border backdrop-blur-xl shadow-2xl shadow-black/50 border-white/20;
+}

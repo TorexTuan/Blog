@@ -1,26 +1,34 @@
 <template>
   <div
-    class="flex-center bg-[url('/assets/images/background-img.jpg')] h-screen"
+    class="flex-center bg-[url('/assets/images/background-img.jpg')] h-screen relative"
   >
+    <CustomDropdown
+      :items="[
+        { text: $t('languages.english'), value: 'en' },
+        { text: $t('languages.vietnamese'), value: 'vn' }
+      ]"
+      class="absolute top-10 right-10"
+      @update:model-value="setLocale"
+    />
     <form
-      class="shadow-2xl shadow-black/50 rounded-xl p-10 flex-center flex-col border-[1px] border-white/20 backdrop-blur-xl w-[360px] sm:w-[400px]"
+      class="bg-default-blur rounded-xl p-10 flex-center flex-col w-[360px] sm:w-[400px]"
     >
-      <p class="label mb-2">{{ isRegister ? "Register" : "Login" }}</p>
+      <p class="label mb-2 capitalize">
+        {{ isRegister ? $t("auth.register") : $t("auth.login") }}
+      </p>
       <div class="flex flex-col w-full">
         <CustomTextBox
           v-model="user.name"
           hide-label
-          label="Username"
-          placeholder="Username"
           append-icon-name="tabler:user-circle"
           class="mt-2"
+          :placeholder="$t('auth.username')"
         />
         <CustomTextBox
           v-model="user.password"
           hide-label
-          label="Password"
-          placeholder="Password"
           class="mt-2"
+          :placeholder="$t('auth.password')"
           :type="isShowPassword ? 'text' : 'password'"
         >
           <template #append-icon>
@@ -44,9 +52,8 @@
           v-if="isRegister"
           v-model="user.confirmPassword"
           hide-label
-          label="Confirm Password"
-          placeholder="Confirm Password"
           class="mt-2"
+          :placeholder="$t('auth.confirm_password')"
           :type="isShowConfirmPassword ? 'text' : 'password'"
         >
           <template #append-icon>
@@ -70,28 +77,32 @@
           <CustomCheckbox
             v-model="user.isRememberMe"
             type="text"
-            name="Remember me"
+            :name="$t('auth.remember_me')"
           />
-          <span class="underline-text"> Forgot password? </span>
+          <span class="underline-text"> {{ $t("auth.forgot_password") }} </span>
         </div>
         <CustomButton
           type="button"
-          :name="isRegister ? 'Submit' : 'Login'"
+          :name="isRegister ? $t('auth.register') : $t('auth.login')"
           class="mt-2 text-black"
           @click="submitUserInfo"
         />
         <div class="text-center mt-3 flex-center">
           <div v-if="isRegister">
-            <span class="text-sm"> You already had an account! </span>
-            <span class="underline-text" @click="switchRegisterForm(false)">
-              Login
-            </span>
+            <div class="text-sm">
+              {{ $t("auth.confirm_login_note") }}
+              <span class="underline-text" @click="switchRegisterForm(false)">
+                {{ $t("auth.login") }}
+              </span>
+            </div>
           </div>
           <div v-else>
-            <span class="text-sm"> Have you had an account? </span>
-            <span class="underline-text" @click="switchRegisterForm(true)">
-              Register
-            </span>
+            <div class="text-sm">
+              {{ $t("auth.confirm_register_note") }}
+              <span class="underline-text" @click="switchRegisterForm(true)">
+                {{ $t("auth.register") }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -103,7 +114,8 @@
 import { ref } from "vue";
 import type { User } from "@/dto/auth.dto";
 
-const isRegister = ref<boolean>(true);
+const { setLocale } = useI18n();
+const isRegister = ref<boolean>(false);
 const isShowPassword = ref<boolean>(false);
 const isShowConfirmPassword = ref<boolean>(false);
 const error = ref<boolean>(false);
@@ -120,7 +132,7 @@ function switchRegisterForm(value: boolean): void {
   isShowConfirmPassword.value = false;
 }
 
-function submitUserInfo() {
+function submitUserInfo(): void {
   error.value = !error.value;
 }
 </script>
